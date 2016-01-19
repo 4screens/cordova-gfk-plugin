@@ -1,0 +1,16 @@
+{
+    "version": "0.0.1",
+    "name": "net.nopattern.cordova.gfk",
+    "cordova_name": "GFKPlugin",
+    "description": "GFK metrics plugin for cordova",
+    "license": "Apache 2.0",
+    "keywords": [
+        "Cordova",
+        "GFK"
+    ],
+    "platforms": [
+        "android",
+        "ios"
+    ],
+    "engines": []
+}
