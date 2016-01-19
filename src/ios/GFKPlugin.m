@@ -1,34 +1,89 @@
 #import "GFKPlugin.h"
 
 @interface GFKPlugin () {
-  @property (nonatomic, strong) SSA *SSA;
-  @property (nonatomic, strong) NSString *adId;
+  @property (nonatomic, weak) SSA *SSA;
+  @property (nonatomic, strong) Agent *agent;
+
+  - (NSString *) createSSAObjectWithAdId:(NSString *)adId andWithConfigUrl:(NSString *)configUrl;
+  - (BOOL) createSSAAgentForMediaId:(NSString *)mediaId;
 }
 
 @implementation GFKPlugin
 
 #pragma mark - Cordova Methods
-
+/**
+* Inits the SSA tracker for GFK
+*
+* Cordova args:
+* arg1 (string) - Advertising ID
+* arg2 (string) - Configuration URL
+* arg3 (string) - Media Identificator
+*/
 - (void)initSSA:(CDVInvokedUrlCommand *)command {
   CDVPluginResult *pluginResult = nil;
+  NSMutableString *logMessage = nil;
+
+  NSString *adId = nil;
+  NSString *configUrl = nil;
+
   self.SSA = nil;
+  self.agent = nil;
 
-  self.adId = [command argumentAtIndex:0 withDefault:@"" andClass:[NSString class]];
+  adId = [command argumentAtIndex:0 withDefault:@"" andClass:[NSString class]];
+  configUrl = [command argumentAtIndex:1 withDefault:@"" andClass:[NSString class]];
+  mediaId = [command argumentAtIndex:2 withDefault:@"" andClass:[NSString class]];
 
-  if (self.adId != nil && [self.adId length]) {
-    SSA = [[SSA alloc]
-      initWithAdvertisingId: self.adId
-      andConfigUrl: @"https://config.sensic.net/pl1-ssa-ios.json"
-    ];
+  logMessage = [self createSSAObjectWithAdId:adId andWithConfigUrl:configUrl];
 
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Inited"];
-  } else{
-    // No track
-    SSA = [[SSA alloc] init];
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Inited without Ad ID. No tracking!"];
+  if ([self createSSAAgentForMediaId:mediaId]) {
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:logMessage];
+  } else {
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No Media ID :/ How I should send stats..?"];
   }
 
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+#pragma mark - Helpers
+
+/**
+* Creates SSA object
+*
+* @param adId - Advertising ID
+* @param configUrl - Configuration URL
+* @return NSString - Result message
+*/
+- (NSString *) createSSAObjectWithAdId:(NSString *)adId andWithConfigUrl:(NSString *)configUrl {
+  NSMutableString *message = @"Inited";
+
+  if (adId != nil && [adId length] && configUrl != nil && [configUrl length]) {
+    self.SSA = [[SSA alloc]
+      initWithAdvertisingId: adId
+      andConfigUrl: configUrl
+    ];
+
+    return @"Inited with Ad ID and Configuration URL.";
+  } else{
+    // No track
+    self.SSA = [[SSA alloc] init];
+
+    return @"Inited without Ad ID. Ad ID or Configuration URL is missing.";
+  }
+}
+
+/**
+* Creates SSA Agent which should be attached to object
+*
+* @param mediaId - Media ID for data that should be send
+* @return BOOL - Status of created Agent
+*/
+- (BOOL) createSSAAgentForMediaId:(NSString *)mediaId {
+  if (mediaId != nil && [mediaId length]) {
+      self.agent = [self.SSA getAgentForMediaId:mediaId];
+
+      return YES;
+  } else {
+      return NO;
+  }
+}
 @end
