@@ -3,16 +3,18 @@ var argscheck = require('cordova/argscheck'),
     exec = require('cordova/exec');
 
 
-var GFKPlugin = function() {
-};
+var GFKPlugin = function() {};
 
-GFKPlugin.test = function(var1, var2) {
+GFKPlugin.SSA = function() {};
+GFKPlugin.SST = function() {};
+
+GFKPlugin.SSA.init = function(var1, var2) {
   exec(
     successHandler,
     errorHandler,
     "GFKPlugin",
-    "text",
-    [var1, var2 || null]
+    "initSSA",
+    [var1 || null]
   );
 };
 
