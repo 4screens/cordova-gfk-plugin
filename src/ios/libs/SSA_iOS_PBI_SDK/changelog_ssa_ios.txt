@@ -1,0 +1,7 @@
+1.1
+- Removed taxonomy parameter
+- Tracking works now independent of provision of AdvertiserID
+- Tracking is now based on SUI (SENSIC User Id) generator
+
+1.0
+- initial release

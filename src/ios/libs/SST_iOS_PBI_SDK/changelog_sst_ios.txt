@@ -1,0 +1,17 @@
+1.7.1
+- Fixed bug which caused SENSIC Site Tracker (SST) and SENSIC Stream Agent (SSA) to crash in the same app 
+
+1.7
+- Adding SUI (SENSIC User ID) generator
+
+1.6.2
+- Tracking url fix
+
+1.6.1
+- Small improvements
+
+1.6
+- Various bugfixes
+
+1.0
+- Initial release

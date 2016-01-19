@@ -44,7 +44,12 @@
 
 
     <!-- libs -->
+    <header-file src="src/ios/libs/SSA_iOS_PBI_SDK/Agent.h" />
+    <header-file src="src/ios/libs/SSA_iOS_PBI_SDK/SSA.h" />
+    <source-file src="src/ios/libs/SSA_iOS_PBI_SDK/libSSA.a" framework="true" compiler-flags="-ObjC"  />
 
+    <header-file src="src/ios/libs/SST_iOS_PBI_SDK/SST.h" />
+    <source-file src="src/ios/libs/SST_iOS_PBI_SDK/libSST.a" framework="true" compiler-flags="-ObjC"  />
   </platform>
 
 </plugin>
