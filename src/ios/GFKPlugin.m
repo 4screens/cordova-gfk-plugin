@@ -1,14 +1,22 @@
 #import "GFKPlugin.h"
+#import "Agent.h"
+#import "SSA.h"
+#import "SST.h"
 
-@interface GFKPlugin () {
-  @property (nonatomic, weak) SSA *SSA;
+@interface GFKPlugin ()
+  @property (nonatomic, strong) SSA *SSA;
   @property (nonatomic, strong) Agent *agent;
 
   - (NSString *) createSSAObjectWithAdId:(NSString *)adId andWithConfigUrl:(NSString *)configUrl;
   - (BOOL) createSSAAgentForMediaId:(NSString *)mediaId;
-}
+
+@end
 
 @implementation GFKPlugin
+
+- (void)initSST:(CDVInvokedUrlCommand *)command {
+
+}
 
 #pragma mark - Cordova Methods
 /**
@@ -21,10 +29,11 @@
 */
 - (void)initSSA:(CDVInvokedUrlCommand *)command {
   CDVPluginResult *pluginResult = nil;
-  NSMutableString *logMessage = nil;
+  NSString *logMessage = nil;
 
   NSString *adId = nil;
   NSString *configUrl = nil;
+  NSString *mediaId = nil;
 
   self.SSA = nil;
   self.agent = nil;
@@ -54,8 +63,6 @@
 * @return NSString - Result message
 */
 - (NSString *) createSSAObjectWithAdId:(NSString *)adId andWithConfigUrl:(NSString *)configUrl {
-  NSMutableString *message = @"Inited";
-
   if (adId != nil && [adId length] && configUrl != nil && [configUrl length]) {
     self.SSA = [[SSA alloc]
       initWithAdvertisingId: adId
@@ -79,7 +86,7 @@
 */
 - (BOOL) createSSAAgentForMediaId:(NSString *)mediaId {
   if (mediaId != nil && [mediaId length]) {
-      self.agent = [self.SSA getAgentForMediaId:mediaId];
+      self.agent = [self.SSA agentWithMediaId:mediaId];
 
       return YES;
   } else {
