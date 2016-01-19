@@ -31,17 +31,14 @@
   <!-- ios -->
   <platform name="ios">
     <config-file target="config.xml" parent="/*">
-      <feature name="BrightcovePlayerPlugin">
-        <param name="ios-package" value="BrightcovePlayerPlugin" onload="true" />
+      <feature name="GFKPlugin">
+        <param name="ios-package" value="GFKPlugin" onload="true" />
       </feature>
     </config-file>
 
-    <config-file target="*-Info.plist" parent="UIViewControllerBasedStatusBarAppearance">
-      <false/>
-    </config-file>
-
     <!-- src -->
-
+    <header-file src="src/ios/GFKPlugin.h" />
+    <source-file src="src/ios/GFKPlugin.m" />
 
     <!-- libs -->
     <header-file src="src/ios/libs/SSA_iOS_PBI_SDK/Agent.h" />
