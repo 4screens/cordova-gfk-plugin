@@ -7,13 +7,13 @@ var GFKPlugin = {
   SST: {}
 };
 
-GFKPlugin.SSA.init = function(mediaId, adId, configUrl) {
+GFKPlugin.SSA.init = function(mediaId) {
   exec(
     successHandler,
     errorHandler,
     "GFKSSAPlugin",
     "initStream",
-    [mediaId, adId || null, configUrl || null]
+    [mediaId]
   );
 };
 

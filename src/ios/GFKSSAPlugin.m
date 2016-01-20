@@ -55,16 +55,14 @@ typedef NSString * (^EventBlock)();
     CDVPluginResult *pluginResult = nil;
     NSString *logMessage = nil;
 
-    NSString *adId = nil;
-    NSString *configUrl = nil;
+    NSString *adId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];;
+    NSString *configUrl = @"https://config.sensic.net/pl1-ssa-ios.json";
     NSString *mediaId = nil;
 
     self.SSA = nil;
     self.agent = nil;
 
     mediaId = [command argumentAtIndex:0 withDefault:@"" andClass:[NSString class]];
-    adId = [command argumentAtIndex:1 withDefault:@"" andClass:[NSString class]];
-    configUrl = [command argumentAtIndex:2 withDefault:@"" andClass:[NSString class]];
 
     logMessage = [self createSSAObjectWithAdId:adId andWithConfigUrl:configUrl];
 
