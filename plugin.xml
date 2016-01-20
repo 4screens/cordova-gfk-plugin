@@ -31,14 +31,19 @@
   <!-- ios -->
   <platform name="ios">
     <config-file target="config.xml" parent="/*">
-      <feature name="GFKPlugin">
-        <param name="ios-package" value="GFKPlugin" onload="true" />
+      <feature name="GFKSSAPlugin">
+        <param name="ios-package" value="GFKSSAPlugin" onload="true" />
+      </feature>
+      <feature name="GFKSSTPlugin">
+        <param name="ios-package" value="GFKSSTPlugin" onload="true" />
       </feature>
     </config-file>
 
     <!-- src -->
-    <header-file src="src/ios/GFKPlugin.h" />
-    <source-file src="src/ios/GFKPlugin.m" />
+    <header-file src="src/ios/GFKSSAPlugin.h" />
+    <source-file src="src/ios/GFKSSAPlugin.m" />
+    <header-file src="src/ios/GFKSSTPlugin.h" />
+    <source-file src="src/ios/GFKSSTPlugin.m" />
 
     <!-- libs -->
     <header-file src="src/ios/libs/SSA_iOS_PBI_SDK/Agent.h" />

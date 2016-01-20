@@ -11,8 +11,8 @@ GFKPlugin.SSA.init = function(mediaId, adId, configUrl) {
   exec(
     successHandler,
     errorHandler,
-    "GFKPlugin",
-    "initSSA",
+    "GFKSSAPlugin",
+    "initStream",
     [mediaId, adId || null, configUrl || null]
   );
 };
@@ -21,8 +21,8 @@ GFKPlugin.SSA.start = function(contentId, customParams) {
   exec(
     successHandler,
     errorHandler,
-    "GFKPlugin",
-    "startSSA",
+    "GFKSSAPlugin",
+    "startStream",
     [contentId, customParams || null]
   );
 };
@@ -31,8 +31,8 @@ GFKPlugin.SSA.playEvent = function() {
   exec(
     successHandler,
     errorHandler,
-    "GFKPlugin",
-    "playSSA",
+    "GFKSSAPlugin",
+    "playEvent",
     [null]
   );
 };
@@ -41,8 +41,8 @@ GFKPlugin.SSA.idleEvent = function() {
   exec(
     successHandler,
     errorHandler,
-    "GFKPlugin",
-    "idleSSA",
+    "GFKSSAPlugin",
+    "idleEvent",
     [null]
   );
 };

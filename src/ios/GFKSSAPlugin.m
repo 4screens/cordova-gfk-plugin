@@ -1,11 +1,10 @@
-#import "GFKPlugin.h"
 #import "Agent.h"
 #import "SSA.h"
-#import "SST.h"
+#import "GFKSSAPlugin.h"
 
 typedef NSString * (^EventBlock)();
 
-@interface GFKPlugin ()
+@interface GFKSSAPlugin ()
 @property (nonatomic, strong) SSA *SSA;
 @property (nonatomic, strong) Agent *agent;
 
@@ -17,18 +16,14 @@ typedef NSString * (^EventBlock)();
 
 @end
 
-@implementation GFKPlugin
-
-- (void)initSST:(CDVInvokedUrlCommand *)command {
-
-}
+@implementation GFKSSAPlugin
 
 #pragma mark - Cordova Methods
 /**
  * Sends event on play start
  * No params
  */
-- (void) playSSA:(CDVInvokedUrlCommand *)command {
+- (void) playEvent:(CDVInvokedUrlCommand *)command {
   [self fireBlock:^{
           [self.agent notifyPlay];
           return @"[SSA] Play Event fired";
@@ -40,7 +35,7 @@ typedef NSString * (^EventBlock)();
  * Sends event on idle state
  * No params
  */
-- (void) idleSSA:(CDVInvokedUrlCommand *)command {
+- (void) idleEvent:(CDVInvokedUrlCommand *)command {
     [self fireBlock:^{
             [self.agent notifyIdle];
             return @"[SSA] Idle Event fired";
@@ -56,7 +51,7 @@ typedef NSString * (^EventBlock)();
  * arg2 (string) - Advertising ID
  * arg3 (string) - Configuration URL
  */
-- (void) initSSA:(CDVInvokedUrlCommand *)command {
+- (void) initStream:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
     NSString *logMessage = nil;
 
@@ -89,7 +84,7 @@ typedef NSString * (^EventBlock)();
  * arg1 (string) - Content ID
  * arg2 (dictionary) - Custom Params
  */
-- (void) startSSA:(CDVInvokedUrlCommand *)command {
+- (void) startStream:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
 
     NSString *contentId = [command argumentAtIndex:0 withDefault:@"" andClass:[NSString class]];
