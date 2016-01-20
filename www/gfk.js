@@ -1,12 +1,11 @@
-cordova.define("net.nopattern.cordova.gfk.gfk", function(require, exports, module) { var argscheck = require('cordova/argscheck'),
+var argscheck = require('cordova/argscheck'),
     utils = require('cordova/utils'),
     exec = require('cordova/exec');
 
-
-var GFKPlugin = function() {};
-
-GFKPlugin.SSA = function() {};
-GFKPlugin.SST = function() {};
+var GFKPlugin = {
+  SSA: {},
+  SST: {}
+};
 
 GFKPlugin.SSA.init = function(mediaId, adId, configUrl) {
   exec(
@@ -37,5 +36,3 @@ function errorHandler(error) {
 }
 
 module.exports = GFKPlugin;
-
-});

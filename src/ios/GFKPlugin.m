@@ -48,7 +48,7 @@
     if ([self createSSAAgentForMediaId:mediaId]) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:logMessage];
     } else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No Media ID :/ How I should send stats..?"];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"[SSA] No Media ID :/ How I should send stats..?"];
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -74,7 +74,7 @@
 
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
     } else {
-        message = @"No content ID. Can't notify";
+        message = @"[SSA] No content ID. Can't notify";
 
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:message];
     }
@@ -94,11 +94,11 @@
     if((int)[customParams count] == 0) {
         [self.agent notifyLoadedWithContentId:contentId];
 
-        return @"Notified loaded with content id.";
+        return @"[SSA] Notified loaded with content id.";
     } else {
         [self.agent notifyLoadedWithContentId:contentId andCustomParameters:customParams];
 
-        return @"Notified loaded with content id and custom parameters.";
+        return @"[SSA] Notified loaded with content id and custom parameters.";
     }
 }
 
@@ -116,12 +116,12 @@
                     andConfigUrl: configUrl
                     ];
 
-        return @"Inited with Ad ID and Configuration URL.";
+        return @"[SSA] Inited with Ad ID and Configuration URL.";
     } else{
         // No track
         self.SSA = [[SSA alloc] init];
 
-        return @"Inited without Ad ID. Ad ID or Configuration URL is missing.";
+        return @"[SSA] Inited without Ad ID. Ad ID or Configuration URL is missing.";
     }
 }
 
