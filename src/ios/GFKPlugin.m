@@ -3,6 +3,8 @@
 #import "SSA.h"
 #import "SST.h"
 
+typedef NSString * (^EventBlock)();
+
 @interface GFKPlugin ()
 @property (nonatomic, strong) SSA *SSA;
 @property (nonatomic, strong) Agent *agent;
@@ -10,6 +12,8 @@
 - (NSString *) createSSAObjectWithAdId:(NSString *)adId andWithConfigUrl:(NSString *)configUrl;
 - (BOOL) createSSAAgentForMediaId:(NSString *)mediaId;
 - (NSString *) notifyLoadedSSAWithContentId:(NSString *)contentId andCustomParams:(NSDictionary *)customParams;
+- (void) fireBlock:(EventBlock)block ifAgentExistsForCommand:(CDVInvokedUrlCommand *)command;
+- (BOOL) isAgentExist;
 
 @end
 
@@ -20,6 +24,30 @@
 }
 
 #pragma mark - Cordova Methods
+/**
+ * Sends event on play start
+ * No params
+ */
+- (void) playSSA:(CDVInvokedUrlCommand *)command {
+  [self fireBlock:^{
+          [self.agent notifyPlay];
+          return @"[SSA] Play Event fired";
+        }
+        ifAgentExistsForCommand:command];
+}
+
+/**
+ * Sends event on idle state
+ * No params
+ */
+- (void) idleSSA:(CDVInvokedUrlCommand *)command {
+    [self fireBlock:^{
+            [self.agent notifyIdle];
+            return @"[SSA] Idle Event fired";
+          }
+          ifAgentExistsForCommand:command];
+}
+
 /**
  * Inits the SSA tracker for GFK
  *
@@ -63,26 +91,51 @@
  */
 - (void) startSSA:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
-    NSString *message = nil;
 
     NSString *contentId = [command argumentAtIndex:0 withDefault:@"" andClass:[NSString class]];
-
     NSDictionary *customParams = [command argumentAtIndex:1 withDefault:@{} andClass:[NSDictionary class]];
 
-    if (contentId != nil && [contentId length]) {
-        message = [self notifyLoadedSSAWithContentId:contentId andCustomParams:customParams];
+    if (contentId != nil && [contentId length] && [self isAgentExist]) {
+        NSString *message = [self notifyLoadedSSAWithContentId:contentId andCustomParams:customParams];
 
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
+    } else if(![self isAgentExist]) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"[SSA] No Agent. Please init the SSA."];
     } else {
-        message = @"[SSA] No content ID. Can't notify";
-
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:message];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"[SSA] No content ID. Can't notify"];
     }
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 #pragma mark - Helpers
+/**
+ * Fires code from provided block if agent exists with sending all the cordova callbacks
+ *
+ * @param block - block with event fire. Check the private interface for definition
+ * @param command - cordova command
+ */
+- (void) fireBlock:(EventBlock)block ifAgentExistsForCommand:(CDVInvokedUrlCommand *)command {
+   CDVPluginResult *pluginResult = nil;
+
+   if ([self isAgentExist]) {
+     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:block()];
+   } else {
+     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"[SSA] No Agent inited. Please init and start the SSA"];
+   }
+
+   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+/**
+ * Checks if agent instance exists
+ *
+ * @return - status of Agent existing
+ */
+- (BOOL) isAgentExist {
+    return self.agent != nil;
+}
+
 /**
  * Sends request to GFK with player loaded notify
  *

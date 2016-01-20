@@ -27,6 +27,26 @@ GFKPlugin.SSA.start = function(contentId, customParams) {
   );
 };
 
+GFKPlugin.SSA.playEvent = function() {
+  exec(
+    successHandler,
+    errorHandler,
+    "GFKPlugin",
+    "playSSA",
+    [null]
+  );
+};
+
+GFKPlugin.SSA.idleEvent = function() {
+  exec(
+    successHandler,
+    errorHandler,
+    "GFKPlugin",
+    "idleSSA",
+    [null]
+  );
+};
+
 function successHandler(success) {
   console.log("[GFKPlugin] OK: " + success);
 }
