@@ -47,6 +47,26 @@ GFKPlugin.SSA.idleEvent = function() {
   );
 };
 
+GFKPlugin.SST.init = function(mediaId) {
+  exec(
+    successHandler,
+    errorHandler,
+    "GFKSSTPlugin",
+    "initTraffic",
+    [mediaId]
+  );
+};
+
+GFKPlugin.SST.trackEvent = function(contentId) {
+  exec(
+    successHandler,
+    errorHandler,
+    "GFKSSTPlugin",
+    "sendImpression",
+    [contentId]
+  );
+};
+
 function successHandler(success) {
   console.log("[GFKPlugin] OK: " + success);
 }

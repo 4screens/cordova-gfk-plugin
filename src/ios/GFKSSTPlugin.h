@@ -2,6 +2,7 @@
 
 @interface GFKSSTPlugin : CDVPlugin
 
-- (void) initSST:(CDVInvokedUrlCommand*)command;
+- (void) initTraffic:(CDVInvokedUrlCommand*)command;
+- (void) sendImpression:(CDVInvokedUrlCommand *)command;
 
 @end
