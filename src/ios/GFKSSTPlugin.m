@@ -1,4 +1,4 @@
-// TODO : Add AdSupport module
+#import "AdSupport/AdSupport.h"
 #import "SST.h"
 #import "GFKSSTPlugin.h"
 

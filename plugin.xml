@@ -30,6 +30,8 @@
 
   <!-- ios -->
   <platform name="ios">
+    <framework src="AdSupport.framework" weak="true" />
+
     <config-file target="config.xml" parent="/*">
       <feature name="GFKSSAPlugin">
         <param name="ios-package" value="GFKSSAPlugin" onload="true" />
