@@ -6,7 +6,12 @@
     "license": "Apache 2.0",
     "keywords": [
         "Cordova",
-        "GFK"
+        "GFK",
+        "SSA",
+        "SST",
+        "Gemius",
+        "GemiusTraffic",
+        "GemiusStream"
     ],
     "platforms": [
         "android",
