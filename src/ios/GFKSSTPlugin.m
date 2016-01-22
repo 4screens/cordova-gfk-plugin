@@ -26,7 +26,7 @@
     if (adId != nil && [adId length] && mediaId != nil && [mediaId length]) {
         self.SST = [[SST alloc] initWithMediaId:mediaId andAdvertisingId:adId];
 
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"[SST] Inited with provided Media ID and Ad ID."];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"[SST] Inited with provided Media ID."];
     } else{
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"[SST] No Media ID :/ How should I send stats..?"];
     }

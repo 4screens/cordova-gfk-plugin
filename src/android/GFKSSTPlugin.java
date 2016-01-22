@@ -69,6 +69,6 @@ public class GFKSSTPlugin extends CordovaPlugin {
     }
 
     tracker.trackPageImpression(contentId);
-    callbackContext.success("[SST] Sent impression");
+    callbackContext.success("[SST] Sent impression " + contentId);
   }
 }
