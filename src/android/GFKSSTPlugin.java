@@ -58,7 +58,7 @@ public class GFKSSTPlugin extends CordovaPlugin {
   }
 
   public void sendImpression(String contentId, CallbackContext callbackContext) {
-    if (contentId == null) {
+    if (contentId == "null") {
       callbackContext.error("[SST] No Content ID :/ How should I send stats..?");
       return;
     }
