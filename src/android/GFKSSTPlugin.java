@@ -40,15 +40,21 @@ public class GFKSSTPlugin extends CordovaPlugin {
     return false;
   }
 
-  public void initTraffic(String mediaId, CallbackContext callbackContext) {
-    if (mediaId == null){
+  public void initTraffic(final String mediaId, CallbackContext callbackContext) {
+    if (mediaId == "null"){
       callbackContext.error("[SST] No Media ID :/ How should I send stats..?");
       return;
     }
 
-    tracker = new SensicSiteTracker(this.cordova.getActivity().getApplicationContext(), mediaId);
+    final Context context = this.cordova.getActivity().getApplicationContext();
 
-    callbackContext.success("[SST] Inited with provided Media ID and Ad ID.");
+    this.cordova.getActivity().runOnUiThread(new Runnable() {
+      public void run() {
+        tracker = new SensicSiteTracker(context, mediaId);
+      }
+    });
+
+    callbackContext.success("[SST] Inited with provided Media ID.");
   }
 
   public void sendImpression(String contentId, CallbackContext callbackContext) {

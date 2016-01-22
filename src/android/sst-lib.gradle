@@ -1,9 +1,12 @@
+apply plugin: 'maven'
+
 repositories{
   jcenter()
   flatDir{
       dirs 'libs'
   }
   maven { url 'dependencies' }
+  mavenCentral()
 }
 
 dependencies {

@@ -14,6 +14,7 @@
 
   <!-- android -->
   <platform name="android">
+    <dependency id="cordova-plugin-okhttp@2.0.0" />
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="GFKSSTPlugin">
         <param name="android-package" value="net.nopattern.cordova.gfk.GFKSSTPlugin" />
@@ -26,6 +27,8 @@
 
     <!-- libs -->
     <framework src="src/android/sst-lib.gradle" custom="true" type="gradleReference" />
+    <framework src="com.google.android.gms:play-services-ads:+" />
+    <framework src="com.google.code.gson:gson:2.3.1" />
 
     <resource-file src="src/android/libs/sst-1.7.3.aar" target="libs/sst-1.7.3.aar" />
   </platform>
