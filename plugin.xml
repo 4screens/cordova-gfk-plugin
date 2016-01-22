@@ -31,6 +31,7 @@
     <framework src="com.google.code.gson:gson:2.3.1" />
 
     <resource-file src="src/android/libs/sst-1.7.3.aar" target="libs/sst-1.7.3.aar" />
+    <resource-file src="src/android/libs/ssa-1.5.2.aar" target="libs/sst-1.5.2.aar" />
   </platform>
 
   <!-- ios -->

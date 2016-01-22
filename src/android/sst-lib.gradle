@@ -11,6 +11,7 @@ repositories{
 
 dependencies {
    compile(name:'sst-1.7.3', ext:'aar')
+   compile(name:'ssa-1.5.2', ext:'aar')
 }
 
 android {
