@@ -43,12 +43,9 @@ public class GFKSSAPlugin extends CordovaPlugin {
       String mediaId = args.getString(0);
       this.initStream(mediaId, callbackContext);
       return true;
-    // } else if (action.equals("playEvent")) {
-    //   this.playEvent(callbackContext);
-    //   return true;
-    // } else if (action.equals("idleEvent")) {
-    //   this.idleEvent(callbackContext);
-    //   return true;
+    } else if (action.equals("playEvent") | action.equals("idleEvent")) {
+      this.fireEvent(action, callbackContext);
+      return true;
     }
 
     return false;
@@ -83,6 +80,21 @@ public class GFKSSAPlugin extends CordovaPlugin {
     } else {
       callbackContext.error("[SSA] No content ID. Can't notify");
     }
+  }
+
+  public void fireEvent(String action, CallbackContext callbackContext) {
+    if (agent == null) {
+      callbackContext.error("[SSA] No Agent inited. Please init and start the SSA");
+      return;
+    }
+
+    if (action.equals("playEvent")) {
+      agent.notifyPlay();
+    } else if (action.equals("idleEvent")) {
+      agent.notifyIdle();
+    }
+
+    callbackContext.success("[SSA] " + action + " fired.");
   }
 
   // Helpers
