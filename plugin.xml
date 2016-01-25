@@ -20,10 +20,15 @@
         <param name="android-package" value="net.nopattern.cordova.gfk.GFKSSTPlugin" />
         <param name="onload" value="true" />
       </feature>
+      <feature name="GFKSSAPlugin">
+        <param name="android-package" value="net.nopattern.cordova.gfk.GFKSSAPlugin" />
+        <param name="onload" value="true" />
+      </feature>
     </config-file>
 
     <!-- src -->
     <source-file src="src/android/GFKSSTPlugin.java" target-dir="src/net/nopattern/cordova/gfk" />
+    <source-file src="src/android/GFKSSAPlugin.java" target-dir="src/net/nopattern/cordova/gfk" />
 
     <!-- libs -->
     <framework src="src/android/sst-lib.gradle" custom="true" type="gradleReference" />
@@ -31,7 +36,7 @@
     <framework src="com.google.code.gson:gson:2.3.1" />
 
     <resource-file src="src/android/libs/sst-1.7.3.aar" target="libs/sst-1.7.3.aar" />
-    <resource-file src="src/android/libs/ssa-1.5.2.aar" target="libs/sst-1.5.2.aar" />
+    <resource-file src="src/android/libs/ssa-1.5.2.aar" target="libs/ssa-1.5.2.aar" />
   </platform>
 
   <!-- ios -->

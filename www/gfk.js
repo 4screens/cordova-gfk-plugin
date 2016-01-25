@@ -23,7 +23,7 @@ GFKPlugin.SSA.start = function(contentId, customParams) {
     errorHandler,
     "GFKSSAPlugin",
     "startStream",
-    [contentId, customParams || null]
+    [contentId, customParams || {}]
   );
 };
 
