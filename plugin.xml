@@ -15,7 +15,7 @@
   <!-- android -->
   <platform name="android">
     <dependency id="cordova-plugin-okhttp@2.0.0" />
-    <dependency id="cordova-plugin-googleplayservices@19.0.3" />
+    <dependency id="cordova-google-play-services@25.0.0" />
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="GFKSSTPlugin">
         <param name="android-package" value="net.nopattern.cordova.gfk.GFKSSTPlugin" />
